@@ -10,3 +10,5 @@ Forward/backward navigation with the browser triggers content to load asynchrono
 
 
 PyJax runs on OSX/Windows/Linux (including Raspberry pi) with Python 2.7 installed.
+
+A complete how-to will come soon.
