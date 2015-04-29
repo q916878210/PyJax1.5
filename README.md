@@ -1,6 +1,6 @@
 # PyJax1.5
 
-PyJax was created to make the web development modular.  Content and resources are automatically gathered and assembled.  Get/Post requests can be handled with html and/or Python methods.
+PyJax was created to make web development modular.  Content and resources are automatically gathered and assembled.  Get/Post requests can be handled with html and/or Python methods.
 
 The framework is data friendly.  Built-in scripts take care of site navigation.
 
