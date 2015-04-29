@@ -1,5 +1,7 @@
 # PyJax1.5
 
+PyJax is a web hosting and compilation framework.
+
 PyJax was created to make web development modular.  Content and resources are automatically gathered and assembled.  Get/Post requests can be handled with html and/or Python methods.
 
 The framework is data friendly.  Built-in scripts take care of site navigation.
