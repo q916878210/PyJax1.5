@@ -1,0 +1,21 @@
+<div class="small-push"></div>
+
+
+<div class="center">
+    <a id="toggle-box" class="button border">Box</a>
+</div>
+
+<br>
+
+<div id="calendar"></div>
+
+<script>
+    function toggleBox(){
+        Class.toggle(document.getElementById('calendar'), 'box');
+        Class.toggle(this, 'active');
+    }
+    Jax.ready(function(){
+        Jax.select(document.getElementById('toggle-box')).click(toggleBox);
+        var cal = Calendar.create('calendar', true);
+    });
+</script>

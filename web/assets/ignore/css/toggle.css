@@ -1,0 +1,59 @@
+div.toggle{
+    position: relative;
+    font-size: 16px;
+    width: 5em; height: 1.8em; line-height: 1.8em;
+    cursor: pointer;
+    color: #2D2D2D;
+    background: #EFEFEF;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+div.toggle > div.toggle-label-wrap{
+    position: absolute; width: 8em; height: inherit;
+    left: -3em;
+    background: inherit;
+    transition: transform .3s ease-in-out;
+    -webkit-transition: -webkit-transform .3s ease-in-out;
+}
+
+div.toggle.shift > div.toggle-label-wrap{
+    transform: translate3d(3em, 0px, 0px);
+    -webkit-transform: translate3d(3em, 0px, 0px);
+}
+
+div.toggle > div.toggle-label-wrap > span{
+    display: block;
+    position: absolute;
+    z-index: 5;
+    width: 3.7em;
+    text-align: center;
+}
+
+div.toggle > div.toggle-label-wrap > span:first-child{
+    left: 0;
+    color: #0099cc;
+}
+
+div.toggle > div.toggle-label-wrap > span:last-child{
+    right: 0;
+}
+
+div.toggle > div.toggle-switch{
+    position: absolute;
+    z-index: 10;
+    background: #4D4D4D;
+    width: 1.3em; top: 0; bottom: 0;
+    transition: transform .3s ease-in-out;
+    -webkit-transition: -webkit-transform .3s ease-in-out;
+}
+
+div.toggle.shift > div.toggle-switch{
+    transform: translate3d(3.7em, 0px, 0px);
+    -webkit-transform: translate3d(3.7em, 0px, 0px);
+}

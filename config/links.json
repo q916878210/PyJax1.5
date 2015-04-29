@@ -1,0 +1,11 @@
+{
+"links":{
+  "Home": "home",
+  "Calendar": "calendar",
+  "Clock": "clock",
+  "Page Scroll": "pscrollfull",
+  "Video Player": "video",
+  "Swipe": "swipe"
+  },
+  "options":""
+}

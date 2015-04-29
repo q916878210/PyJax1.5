@@ -1,0 +1,39 @@
+html, body{
+    margin: 0; padding: 0;
+    position: relative;
+    overflow-x: hidden;
+}
+
+html{
+    font-family: Lato, sans-serif;
+    font-weight: lighter;
+    color: #303030;
+    -webkit-font-smoothing: antialiased;
+    background: transparent;
+    height: auto;
+}
+
+body{
+    background: #F1F1F1;
+    height: inherit;
+}
+
+#page, #main{
+    position: relative;
+    background: inherit;
+    height: inherit;
+}
+
+
+#page{
+    z-index: 10;
+    padding-top: 50px;
+}
+
+#main{
+    text-align: center;
+}
+
+.no-scroll{
+    overflow: hidden;
+}

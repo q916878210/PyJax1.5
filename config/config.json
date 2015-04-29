@@ -1,0 +1,8 @@
+{
+  "title": "PyJax",
+  "timeout": 1440,
+  "home": "home",
+  "forms": "prevent",
+  "database": "jax.db",
+  "mini": false
+}

@@ -1,0 +1,503 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*________Default Items________*/
+
+/*_____Overall_____*/
+
+div.cal-wrap{
+    z-index: 1;
+    font-size: 14px;
+    font-family: Lato, sans-serif;
+    color: inherit;
+    background: #FFF;
+    font-weight: lighter;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    white-space: nowrap;
+    margin: auto;
+    width: 100%;
+    max-width: 1300px;
+    min-width: 300px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+div.cal-wrap > div{
+    z-index: 3;
+}
+
+/*/____End_Overall____*/
+
+/*____Event_Mods____ */
+
+div.cal-wrap > div.cal-event-mod{
+    margin: 0;
+    position: relative;
+    z-index: 5;
+    display: none;
+}
+
+div.cal-wrap > div.cal-event-mod > form{
+    position: relative;
+    z-index: 5;
+    display: inline-block;
+    padding: 8px;
+    margin: 0;
+    min-width: 200px;
+    max-width: 400px;
+    background: #EFEFEF;
+    text-align: left;
+    -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;
+	-moz-box-shadow:0 1px 4px #666; -webkit-box-shadow:0 1px 4px #666; box-shadow:0 1px 4px #666;
+}
+
+div.cal-wrap > div.cal-event-mod > form{
+    transition: transform .25s ease;
+    -webkit-transition: -webkit-transform .25s ease;
+}
+
+div.cal-wrap > div.cal-event-mod > form.shift{
+    -moz-border-radius:0; -webkit-border-radius:0; border-radius:0;
+    transform: translate3d(0px, 100%, 0px);
+    -webkit-transform: translate3d(0px, 100%, 0px);
+}
+
+div.cal-wrap > div.cal-event-mod > form > *{
+    margin: 0;
+    font-family: Lato, sans-serif;
+    font-weight: normal;
+}
+
+div.cal-wrap > div.cal-event-mod > form > input, div.cal-wrap > div.cal-event-mod > form > button{
+    font-size: 15px;
+    height: 2em;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+
+div.cal-wrap > div.cal-event-mod > form > input[type='text']{
+    display: block;
+    width: 100%;
+    margin-bottom: 2px;
+    padding-left: 1px;
+}
+
+div.cal-wrap > div.cal-event-mod > form > label{
+    display: inline-block;
+    margin: 4px 16px 4px 0;
+}
+
+div.cal-wrap > div.cal-event-mod > form > label > input[type='radio']{
+
+}
+
+div.cal-wrap > div.cal-event-mod > form > select{
+    font-size: 16px;
+    outline: none;
+    margin-left: 1px;
+}
+
+div.cal-wrap > div.cal-event-mod > form > select + select{
+    margin-left: 2px;
+}
+
+div.cal-wrap > div.cal-event-mod > form > button{
+    display: inline-block;
+    padding: 0 6px;
+    background: #FFF;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(200, 200, 200, .5);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;
+}
+
+div.cal-wrap > div.cal-event-mod > form > button + button{
+    margin-left: 2px;
+}
+
+div.cal-wrap > div.cal-event-mod > form > button:hover{
+    background: #DDDDDD;
+}
+
+div.cal-wrap > div.cal-event-mod > form > button:active{
+
+}
+
+div.cal-wrap > div.cal-event-mod > form > select, div.cal-wrap > div.cal-event-mod > form > button{
+    float: left;
+}
+
+div.cal-wrap > div.cal-event-mod > form > select.cal-right, div.cal-wrap > div.cal-event-mod > form > button.cal-right{
+    float: right;
+}
+
+div.cal-wrap > div.cal-event-mod > form > a{
+    display: block;
+    visibility: hidden;
+}
+
+div.cal-wrap > div.cal-event-mod > form > a:before{
+    content: '\a';
+    white-space: pre;
+    float: right;
+    width: 100%;
+}
+
+/*____End_Event_Mod___*/
+
+
+/*____Cal_Nav____*/
+
+div.cal-wrap > div.cal-nav{
+    font-size: 16px;
+}
+
+div.cal-wrap > div.cal-nav > div.cal-nav-wrap{
+    border: 1px solid rgba(0, 0, 0, .2);
+    display: inline-block;
+    background: #FFFFFF;
+}
+
+div.cal-wrap > div.cal-nav > div.cal-nav-wrap > select{
+    outline: none;
+    margin: 0 0 0 4px;
+    font-size: 16px;
+}
+
+div.cal-wrap > div.cal-nav > div.cal-nav-wrap > select + select + select{
+    margin-right: 4px;
+}
+
+div.cal-wrap > div.cal-nav > div.cal-nav-wrap > button{
+    font-size: 15px;
+    line-height: 100%;
+    height: 2rem;
+    background: #F5F5F5;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    border-right: 1px solid rgba(0, 0, 0, .2);
+}
+
+div.cal-wrap > div.cal-nav > div.cal-nav-wrap > select + button{
+    border-left: 1px solid rgba(0, 0, 0, .2);
+    border-right: 0;
+}
+
+div.cal-wrap > div.cal-nav > div.cal-nav-wrap > button:hover{
+    background: #DDDDDD;
+}
+
+div.cal-wrap > div.cal-nav > div.cal-nav-wrap > button:active{
+    opacity: .8;
+}
+
+div.cal-wrap > div.cal-nav > div.cal-nav-wrap > button:focus{
+    outline: 0;
+}
+
+/*___End_Cal_Nav___*/
+
+div.cal-wrap > div.cal-headers{
+    color: #883333;
+    font-variant: small-caps;
+    background: inherit;
+}
+
+div.cal-wrap > div > ol{
+    padding: 0;
+    margin: 0;
+}
+
+div.cal-wrap > div > ol::-webkit-scrollbar {
+    display: none;
+}
+
+div.cal-wrap > div > ol > li{
+    display: inline-block;
+    position: relative;
+    min-width: 32px;
+    max-width: 14%;
+    width: 100%;
+    margin: 4px 0 0 0;
+    cursor: pointer;
+    border-radius: 8px;
+    vertical-align: top;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+div.cal-wrap > div.cal-dates{
+    position: relative;
+    background: inherit;
+}
+
+div.cal-wrap > div.cal-dates > ol > li{
+    height: 64px;
+}
+
+div.cal-wrap > div > ol > li.today{
+    background: #fffbe6;
+}
+
+div.cal-wrap > div > ol > li.selected{
+    border: 1px;
+}
+
+div.cal-wrap > div > ol > li[name=cal-off-l], div.cal-wrap > div > ol > li[name=cal-off-r]{
+    color: #CCC;
+}
+
+div.cal-wrap > div > ol > li > div{
+    width: 100%;
+    text-align: left;
+}
+
+div.cal-wrap > div > ol > li > div.cal-date-num{
+    text-align: center;
+}
+
+div.cal-wrap > div > ol > li.selected > div.cal-date-num{
+    color: #0099cc;
+}
+
+/*
+    ________Events_________
+*/
+
+div.cal-wrap > div > ol > li > div.cal-event-holder{
+    color: #FFFFFF;
+    font-size: 12px;
+    min-width: 100px;
+    background: #EFEFEF;
+}
+
+div.cal-wrap > div > ol > li > div.cal-event-holder > div{
+    height: 100%;
+    padding: 1px 1px 0 1px;
+    background: -webkit-linear-gradient(#0094c8, #0099cc, #0094c8);
+    background: -o-linear-gradient(#0094c8, #0099cc, #0094c8);
+    background: -moz-linear-gradient(#0094c8, #0099cc, #0094c8);
+}
+
+div.cal-wrap > div > ol > li[name=cal-off-l] > div > div, div.cal-wrap > div > ol > li[name=cal-off-r] > div.cal-event-holder > div{
+    background: #999999;
+}
+
+div.cal-wrap > div > ol > li > div.cal-event-holder > div > div{
+    display: inline-block;
+    vertical-align: top;
+    line-height: 100%;
+}
+
+div.cal-wrap > div > ol > li > div.cal-event-holder > div > div.cal-left{
+    min-width: 65%;
+    max-width: 65%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+div.cal-wrap > div > ol > li > div.cal-event-holder > div > div.cal-right{
+    text-align: right;
+    min-width: 35%;
+}
+
+/*/________End_Events________*/
+
+/*________Overflow________*/
+
+div.cal-wrap > div.cal-overflow{
+    display: none;
+    position: relative;
+    z-index: 1;
+}
+
+div.cal-wrap > div.cal-overflow > div{
+    margin: auto;
+    background: #404040;
+    max-width: 700px;
+    min-height: 400px;
+    color: #FFFFFF;
+    padding: 8px;
+}
+
+div.cal-wrap > div.cal-overflow > div:not(.no-trans){
+    transition: transform .25s ease-in-out;
+    -webkit-transition: -webkit-transform .25s ease-in-out;
+}
+
+div.cal-wrap > div.cal-overflow > div.shift{
+    transform: translate3d(0px, -100%, 0px);
+    -webkit-transform: translate3d(0px, -100%, 0px);
+}
+
+div.cal-wrap > div.cal-overflow > div > div.cal-date-num{
+    font-size: 20px;
+    text-align: right;
+}
+
+div.cal-wrap > div.cal-overflow > div > div.cal-event-holder{
+
+}
+
+div.cal-wrap > div.cal-overflow > div > div.cal-event-holder > div{
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(200, 200, 200, .5);
+    -webkit-user-select: none;
+    -html-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+div.cal-wrap > div.cal-overflow > div > div.cal-event-holder > div.cal-event-add{
+    padding: 8px;
+    font-size: 16px;
+}
+
+div.cal-wrap > div.cal-overflow > div > div.cal-event-holder > div:not(.cal-event-add){
+    padding: 1px;
+    margin: 4px 0 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .4);
+}
+
+div.cal-wrap > div.cal-overflow > div > div.cal-event-holder > div:hover{
+    background: #505050;
+}
+
+div.cal-wrap > div.cal-overflow > div > div.cal-event-holder > div:active{
+
+}
+
+div.cal-wrap > div.cal-overflow > div > div.cal-event-holder > div > div{
+    text-align: left;
+    padding: 1px;
+}
+
+div.cal-wrap > div.cal-overflow > div > div.cal-event-holder > div > div.cal-left{
+    font-size: 18px;
+}
+
+div.cal-wrap > div.cal-overflow > div > div.cal-event-holder > div > div.cal-right{
+    font-size: 12px;
+    color: #E4E4E4;
+}
+
+/*/________End_Overflow________*/
+
+/*________Mod________*/
+
+
+.box > div.cal-wrap > div > ol > li{
+    border-radius: 0;
+    margin: 0;
+    border-right: thin solid #c0c0c0;
+    border-bottom: thin solid #c0c0c0;
+}
+
+.box > div.cal-wrap > div > ol > li.border-left{
+    border-left: thin solid #c0c0c0;
+}
+
+.box > div.cal-wrap > div.cal-headers > ol > li{
+    border-top: thin solid #c0c0c0;
+}
+
+.box > div.cal-wrap > div.cal-dates > ol > li > div.cal-date-num{
+    text-align: right;
+    padding-right: 1px;
+}
+
+.box > div.cal-wrap > div.cal-nav > div.cal-nav-wrap{
+    border-bottom: none;
+}
+
+@media screen and (min-width:1300px){
+    div.cal-wrap > div.cal-dates > ol > li{
+        height: 120px;
+    }
+}
+
+@media screen and (max-width:1299px) and (min-width:1200px) {
+    div.cal-wrap > div.cal-dates > ol > li{
+        height: 112px;
+    }
+}
+
+@media screen and (max-width:1199px) and (min-width:1100px) {
+    div.cal-wrap > div.cal-dates > ol > li{
+        height: 104px;
+    }
+}
+
+@media screen and (max-width:1099px) and (min-width:1000px) {
+    div.cal-wrap > div.cal-dates > ol > li{
+        height: 96px;
+    }
+}
+
+@media screen and (min-width: 1000px){
+    div.cal-wrap{
+        font-size: 16px;
+    }
+    div.cal-wrap > div > ol > li > div > div{
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width:999px) and (min-width:900px) {
+    div.cal-wrap > div.cal-dates > ol > li{
+        height: 88px;
+    }
+}
+
+@media screen and (max-width:899px) and (min-width:700px) {
+    div.cal-wrap > div.cal-dates > ol > li{
+        height: 80px;
+    }
+}
+
+@media screen and (max-width:700px){
+    div.cal-wrap{
+        font-size: 13px;
+    }
+    div.cal-wrap > div > ol > li > div > div{
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width:800px){
+    div.cal-wrap > div > ol > li > div > div > div.cal-right{
+
+    }
+}
+
+@media screen and (max-width:550px) {
+    div.cal-wrap > div.cal-dates > ol > li {
+        height: 48px;
+    }
+}
+
+@media screen and (max-width: 700px){
+    div.cal-wrap > div.cal-overflow{
+        display: block;
+    }
+    div.cal-wrap > div.cal-dates{
+        border-bottom: 1px solid rgba(0, 0, 0, .4);
+    }
+    div.cal-wrap > div > ol > li{
+        overflow: hidden;
+    }
+    div.cal-wrap > div.cal-event-mod > form{
+        width: 100%;
+    }
+}

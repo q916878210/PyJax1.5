@@ -1,0 +1,102 @@
+<header>
+    <div id="page-label">
+        <div id="icon-wrap">
+            <div class="icon">
+                <div></div><div></div><div></div>
+            </div>
+        </div>
+        <label></label>
+    </div>
+    <div id="sign-label" class="blue-text">
+        <div class="sign-status">
+        </div>
+    </div>
+</header>
+
+<nav id="menu">
+    <ol>
+        {%!!links%}
+        <!--leave the links injector, it can be moved but shouldn't be deleted-->
+    </ol>
+</nav>
+
+
+<script>
+    (function(){
+        Jax.ready(function(){
+            var header = document.getElementsByTagName('header')[0];
+            var menu = document.getElementById('menu');
+            var iconWrap = document.getElementById('icon-wrap');
+            var pageLabel = document.getElementById('page-label');
+            var label = pageLabel.getElementsByTagName('label')[0];
+            var page = document.getElementsByTagName('html')[0];
+
+            (function(){
+                function closeMenu(){
+                    Jax.cls.remove(menu, 'shift');
+                    Jax.cls.remove(iconWrap, 'shift');
+                    Jax.cls.remove(page, 'no-scroll');
+                }
+
+                function openMenu(){
+                    Jax.cls.add(page, 'no-scroll');
+                    Jax.cls.add(menu, 'shift');
+                    Jax.cls.add(iconWrap, 'shift');
+                }
+
+                menu.addEventListener('mouseleave', function(){
+                    closeMenu();
+                }, false);
+
+                menu.addEventListener('mouseenter', function(){
+                    openMenu();
+                }, false);
+
+                menu.addEventListener('touchend', function(){
+                    closeMenu();
+                }, false);
+
+                pageLabel.addEventListener('mouseenter', function(){
+                    openMenu();
+                }, false);
+
+                pageLabel.addEventListener('mouseleave', function(){
+                    closeMenu();
+                }, false);
+
+                var mSwipe = Swipe.make(menu);
+                mSwipe.left = function(){
+                    closeMenu();
+                };
+
+                var hSwipe = Swipe.make(header, 300);
+                hSwipe.left = function(){
+                    closeMenu();
+                };
+                hSwipe.right = function(){
+                    openMenu();
+                };
+
+                pageLabel.onclick = function(e){
+                    if(Jax.cls.toggle(iconWrap, 'shift')){
+                        openMenu();
+                    }else{
+                        closeMenu();
+                    }
+                };
+            })();
+
+            function frontCase(str){
+                return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
+            }
+
+            Jax.onLoad(function(page){
+                if(page[1]){
+                    label.innerText = page[1].children[0].innerText;
+                }else{
+                    label.innerText = frontCase(page[0]);
+                }
+            });
+        });
+    })();
+</script>

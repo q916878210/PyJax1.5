@@ -1,0 +1,133 @@
+/*___MAIN___*/
+
+*, :before, :after {
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+/*____TAGS____*/
+
+h1, h2, h3, h4{
+    margin: 0;
+}
+
+h1, h2{
+    font-weight: 300;
+    color: #555;
+}
+
+h1{
+    font-size: 38px;
+}
+
+h2{
+    font-size: 32px;
+}
+
+h3, h4{
+    font-variant: small-caps;
+}
+
+@media screen and (max-width:750px){
+    h1{
+        font-size: 22px;
+    }
+    h2{
+        font-size: 18px;
+    }
+}
+
+/*___CONTENT___*/
+.content-wrap{
+
+
+}
+
+.column{
+    display: inline-block;
+    max-width: 500px;
+    width: 100%;
+    vertical-align: top;
+}
+
+.content{
+    text-align: left;
+    display: block;
+    max-width: 500px;
+    width: 100%;
+    border: 1px solid rgba(60, 60, 60, .1);
+}
+
+/*___MODIFIERS___*/
+
+.small-push{
+    padding: 1em 0 0 0;
+}
+
+.hidden{
+    display: none;
+}
+
+.center{
+    text-align: center;
+}
+
+.left{
+    text-align: left;
+}
+
+.right{
+    text-align: right;
+}
+
+.pad-16-tb{
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.pad-16-lr{
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.pad-32-tb{
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+.pad-32-lr{
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+.circle{
+    border-radius:50%;
+    -webkit-border-radius: 50%;
+}
+
+
+.no-select, .button{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+
+.button{
+    height: 2.5em;
+    border: 0;
+    cursor:pointer;
+    padding: .5em;
+}
+
+.button:hover{
+    opacity: .9;
+}
+
+.round{
+    border-radius:2px;
+    -webkit-border-radius: 2px;
+}

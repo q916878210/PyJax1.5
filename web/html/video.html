@@ -1,0 +1,26 @@
+<style>
+
+    .content-wrapper{
+        background: #111;
+    }
+
+</style>
+
+<section>
+    <div id="video-wrap" class="content-wrapper">
+        <video id="video" src="stream?filename=video.mp4" preload="metadata"></video>
+    </div>
+</section>
+
+<div class="split">
+    <section id="section-right" class="pad-32-lr pad-16-tb">
+        <h2 class="center">Stream and seek support</h2>
+        <code id="v-code"></code>
+    </section>
+</div>
+
+<script>
+    Jax.ready(function(){
+        VideoPlayer.make(document.getElementById('video'));
+    });
+</script>

@@ -1,0 +1,31 @@
+<section class="pad-32-lr pad-16-tb">
+    <h2 class="center">Swiping</h2>
+</section>
+
+
+<section class="pad-16-tb">
+    <div class="center blue pad-32-lr pad-32-tb" id="swipe-box">
+        <h3>Testing the swipe function</h3>
+        <p class="pad-32-lr pad-32-tb" id="swipe-status">Try it</p>
+    </div>
+</section>
+
+
+<script>
+    Jax.ready(function(){
+        var ss = document.getElementById('swipe-status');
+        var tSwipe = Swipe.make(document.getElementById('swipe-box'));
+        tSwipe.left = function(){
+            ss.innerText = 'left';
+        };
+        tSwipe.right = function(){
+            ss.innerText = 'right';
+        };
+        tSwipe.up = function(){
+            ss.innerText = 'up';
+        };
+        tSwipe.down = function(){
+            ss.innerText = 'down';
+        };
+    });
+</script>

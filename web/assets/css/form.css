@@ -1,0 +1,69 @@
+.form-wrap{
+    background: #EFEFEF;
+    padding: 2em; margin: 0 auto;
+    max-width: 350px; min-width: 250px; width: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, .3);
+    -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px;
+    -moz-box-shadow:0 1px 4px #666; -webkit-box-shadow:0 1px 4px #666; box-shadow:0 1px 4px #666;
+}
+
+
+.form-wrap > img{
+    margin: 16px;
+    max-width: 128px;
+    max-height: 128px;
+}
+
+
+form{
+    position: relative;
+    z-index: 5;
+    display: inline-block;
+    padding: 0; margin: 0;
+    text-align: left;
+    font-size: 14px;
+    width: 100%;
+}
+
+
+.hide-label > label{
+    display: none;
+}
+
+input{
+    display: block;
+    padding: 0 8px; margin: 0 auto;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+}
+
+
+input:focus{
+    outline: solid 1px #4690ee;
+    -webkit-appearance: none;
+    -moz-box-shadow:0 1px 2px 0 #BBB inset;
+    -webkit-box-shadow:0 1px 2px 0 #BBB inset;
+    box-shadow:0 1px 2px 0 #BBB inset;
+}
+
+.input-text{
+    height: 32px;
+    border: 1px solid #AAA;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+}
+
+.input-text[type=password]{
+    border-top: 0;
+}
+
+input[type=submit]{
+    height: 2.5em;
+    border: 0;
+    cursor:pointer;
+}
+

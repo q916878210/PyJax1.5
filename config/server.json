@@ -1,0 +1,9 @@
+{
+  "address": "auto",
+  "web_port": 8080,
+  "web_socket_port": 8081,
+  "sql_port": 8946,
+  "socket_update_port": 8945,
+  "ghost_update_port": 8944,
+  "ghost_port": 8943
+}

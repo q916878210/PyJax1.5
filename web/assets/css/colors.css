@@ -1,0 +1,56 @@
+.blue-text{
+    color: #4690ee !important;
+}
+
+.blue{
+    color: #FFF !important;
+    background: #4690ee !important;
+}
+
+input[type=submit].blue:hover, input[type=button].blue:hover{
+    background: #4085e1;
+}
+
+.orange-text{
+    color: #FF8800 !important;
+}
+
+.orange{
+    background:#FF8800;
+}
+
+.red-text{
+    color: #FF4444 !important;
+}
+
+.red{
+    background:#FF4444;
+}
+
+.purple-text{
+    color: #639 !important;
+}
+
+.green-text{
+    color: #669900 !important;
+}
+
+.gray-text{
+    color: #838383 !important;
+}
+
+.white{
+    background: #FFF;
+}
+
+.white-text{
+    color: #FFF !important;
+}
+
+.black-text{
+    color: #2d2d2d !important;
+}
+
+.black{
+    background: #000;
+}

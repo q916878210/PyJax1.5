@@ -1,0 +1,225 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*________Default Items________*/
+
+/*_____Overall_____*/
+
+div.clock-dialog-wrap{
+    position: relative;
+    display: inline-block;
+    min-width: 150px; max-width: 250px; width: 100%;
+}
+
+div.clock-dialog-wrap > input{
+    cursor: pointer;
+}
+
+div.clock-wrap{
+    font-family: Lato, sans-serif;
+    font-weight: lighter;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    font-size: 100%;
+    min-width: 150px; max-width: 250px; width: 100%;
+    margin: auto;
+    text-align: center;
+    background: #E9E9E9;
+    -moz-box-shadow:0 2px 4px #111; -webkit-box-shadow:0 2px 4px #111; box-shadow:0 2px 4px #111;
+}
+
+div.clock-wrap.hide{
+    display: none;
+}
+
+div.clock-wrap.dialog{
+    position: absolute;
+    z-index: 50;
+}
+
+div.clock-wrap > div, div.clock-dialog-wrap, div.clock-dialog-wrap > input{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+div.clock-wrap > div.clock-display{
+    position: relative;
+    text-align: center;
+    background: #FEFEFE;
+    color: #5D5D5D;
+    font-weight: bold;
+    cursor: default;
+}
+
+div.clock-wrap > div.clock-display > div{
+    position: relative;
+    display: block;
+    width: 4.5em; height: 3em;
+    margin: 0 auto;
+}
+
+div.clock-wrap > div.clock-display > div > a{
+    display: inline;
+    position: absolute;
+    font-size: 1.5em;
+    bottom: 25%;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+
+div.clock-wrap > div.clock-display > div > a:nth-child(1){
+    text-align: right;
+    left: .25em;
+    width: 1.2em;
+}
+
+div.clock-wrap > div.clock-display > a:nth-child(2){
+    left: 50%;
+}
+
+div.clock-wrap > div.clock-display > div > a:nth-child(3){
+    text-align: left;
+    right: -.1em;
+    width: 1.2em;
+}
+
+div.clock-wrap > div.clock-display > div > a:nth-child(4){
+    right: -1.25em;
+    font-size: 1em;
+    bottom: .9em;
+    font-variant: small-caps;
+}
+
+div.clock-wrap > div.clock-display > div > a.selected{
+    color: #0099CC;
+}
+
+
+div.clock-wrap > div.clock-numbers{
+    padding: 12px;
+    text-align: center;
+    color: #3D3D3D;
+}
+
+div.clock-wrap > div.clock-numbers > div{
+    position: relative;
+    width: 100%; height: 0; padding-bottom: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, .1);
+    background: #F5F5F5;
+}
+
+div.clock-wrap > div.clock-numbers > div.hide{
+    display: none;
+}
+
+div.clock-wrap > div.clock-numbers > div > div{
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 1.5em;
+    width: 1.5em; height: 1.5em;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+}
+
+div.clock-wrap > div.clock-numbers > div > div > a{
+    position: absolute;
+    width: 1.5em;
+    padding: 0; margin: 0;
+    display: block;
+}
+
+div.clock-wrap > div.clock-numbers > div:last-child > div:nth-child(1){
+    margin-left: .2em;
+}
+
+div.clock-wrap > div.clock-numbers > div:first-child > div:nth-child(12){
+    margin-left: .2em;
+}
+
+div.clock-wrap > div.clock-numbers > div:first-child > div:nth-child(12) > a{
+    right: .05em;
+}
+
+div.clock-wrap > div.clock-numbers > div > div:hover{
+    text-decoration: none;
+}
+
+div.clock-wrap > div.clock-numbers > div > div.selected{
+    background: #AADDEE;
+    opacity: .8;
+}
+
+div.clock-wrap > div.clock-pick-m{
+    position: relative;
+    height: 4em;
+    margin-top: -2.5em;
+    color: #3D3D3D;
+    text-align: center;
+    pointer-events: none;
+}
+
+div.clock-wrap > div.clock-pick-m > a{
+    position: absolute;
+    display: inline-block;
+    margin: 12px; padding: 0;
+    line-height: 2.1em;
+    width: 2.2em; height: 2.2em;
+    text-align: center;
+    border-radius: 50%;
+    background: #FEFEFE;
+    cursor: pointer;
+    font-variant: small-caps;
+    pointer-events: initial;
+    -webkit-tap-highlight-color: transparent;
+}
+
+div.clock-wrap > div.clock-pick-m > a:nth-child(1){
+    left: 0;
+}
+
+div.clock-wrap > div.clock-pick-m > a:nth-child(2){
+    right: 0;
+}
+
+div.clock-wrap > div.clock-pick-m > a.selected{
+    background: #AADDEE;
+}
+
+div.clock-wrap > div.clock-bottom{
+    height: 2em; line-height: 2em;
+}
+
+div.clock-wrap > div.clock-bottom.hide{
+    display: none;
+}
+
+div.clock-wrap > div.clock-bottom > hr{
+    height: 1px;
+    margin: 0 0 -1px 0;
+}
+
+div.clock-wrap > div.clock-bottom > button{
+    display: block;
+    font: inherit;
+    height: inherit; line-height: inherit; width: 100%;
+    padding: 0; margin: 0;
+    color: #3D3D3D;
+    background: #E9E9E9;
+    cursor: pointer;
+    border: 0;
+    outline: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+div.clock-wrap > div.clock-bottom > button:hover, div.clock-wrap > div.clock-bottom > button:active{
+    background: #AADDEE;
+    text-decoration: none;
+}
