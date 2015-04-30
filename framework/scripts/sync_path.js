@@ -4,6 +4,6 @@
 
 try{
     Jax.ready(function(){
-        Jax.page.syncPath('{%!!path%}');
+        Jax.syncPath('{%!!path%}');
     });
 }catch(e){}

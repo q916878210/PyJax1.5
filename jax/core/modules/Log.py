@@ -71,6 +71,6 @@ class Log(type):
             Log.writer.add(Log.writer.err, str(err))
 
     @staticmethod
-    def report_socket_error(address=None, request=None):
+    def report_socket_error(address=None, traceback=None):
         if Log.proceed_socket_error():
-            Log.writer.add(Log.writer.sock, '%s: %s' % (address, request))
+            Log.writer.add(Log.writer.sock, '%s\n%s' % (address, traceback))

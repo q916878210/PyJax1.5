@@ -3,8 +3,9 @@
     <div class="small-push"></div>
     <div class="form-wrap no-select center">
         <img class="circle" src="avatar.png"/>
+        <br>
         <a name="status"></a>
-        <form id="form" class="hide-label" action="sign_in" method="POST">
+        <form id="form" class="hide-label" action="sign_in" method="POST" onsubmit="Account.signIn(this);">
             <label for="username">Username</label><input class="input-text" name="username" id="username" type="text" placeholder="Username"/>
             <label for="password">Password</label><input class="input-text" name="password" id="password" type="password" placeholder="Password"/>
             <label for="confirm">Password</label><input class="input-text" name="confirm" id="confirm" type="hidden" placeholder="Retype New Password"/>
@@ -35,31 +36,6 @@
                     form.confirm.type = "hidden";
                     form.submit.value = "Sign in";
                     this.innerText = 'Create account';
-                }
-            };
-
-            document.getElementById('form').onsubmit = function(){
-                var username = this.username.value;
-                var pass = this.confirm.type == 'hidden' || this.confirm.value != '';
-
-                if((this.username.value != '' || this.password.value != '') && pass){
-                    if(this.confirm.type == 'hidden' || (this.password.value == this.confirm.value)){
-                        this.ajax(function(data){
-                            if(data.json().status == 'true'){
-                                var signLabel = document.getElementById('sign-label');
-                                signLabel.onclick = function(){
-                                };
-                                signLabel.getElementsByClassName('sign-status')[0].innerText = username;
-                                Jax.page.load('home');
-                            }else{
-                                Jax.select("a[name=status]").text(data.json().message);
-                            }
-                        });
-                    }else{
-                        Jax.select("a[name=status]").text("passwords don't match");
-                    }
-                }else{
-                    Jax.select("a[name=status]").text('empty fields');
                 }
             };
         })();

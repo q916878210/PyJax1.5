@@ -213,15 +213,17 @@ def menu_factory(inherit, *args):
                 self.__servers.start('sql')
             if args.ghost:
                 self.__servers.start('ghost')
-            if args.log_disconnect:
+            if args.log_all:
                 Config.load_tmp(log_socket_error=True)
-                Log.last_socket_error = 0
-            if args.log_error:
                 Config.load_tmp(log_error=True)
-                Log.last_error = 0
-            if args.log_message:
                 Config.load_tmp(log_message=True)
-                Log.last_message = 0
+            else:
+                if args.log_disconnect:
+                    Config.load_tmp(log_socket_error=True)
+                if args.log_error:
+                    Config.load_tmp(log_error=True)
+                if args.log_message:
+                    Config.load_tmp(log_message=True)
 
         def __callback_begin(self):
             self.__callback_pre()
@@ -302,6 +304,7 @@ if __name__ == "__main__":
     parser.add_argument('--log-disconnect', action='store_true')
     parser.add_argument('--log-error', action='store_true')
     parser.add_argument('--log-message', action='store_true')
+    parser.add_argument('--log-all', action='store_true')
     parser.add_argument('--no-cli', action='store_false')
     p_args = parser.parse_args()
     InterfaceFactory.menu(p_args.no_cli, p_args).loop()

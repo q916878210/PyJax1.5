@@ -1,5 +1,26 @@
+<style>
+    .nav-color{
+        position: absolute;
+        z-index: -1;
+        top: 0; left: 0; right: 0;
+    }
+
+    .my-colors > div{
+        height: 50px;
+        width: 100%;
+        line-height: 50px;
+    }
+</style>
+
+
 <header>
+    <section class="title-wrap">
+        <a>{%!title%}</a>
+    </section>
     <div id="page-label">
+        <div class="my-colors nav-color">
+            <div></div>
+        </div>
         <div id="icon-wrap">
             <div class="icon">
                 <div></div><div></div><div></div>
@@ -7,9 +28,8 @@
         </div>
         <label></label>
     </div>
-    <div id="sign-label" class="blue-text">
-        <div class="sign-status">
-        </div>
+    <div id="sign-label">
+
     </div>
 </header>
 
@@ -22,81 +42,85 @@
 
 
 <script>
-    (function(){
-        Jax.ready(function(){
-            var header = document.getElementsByTagName('header')[0];
-            var menu = document.getElementById('menu');
-            var iconWrap = document.getElementById('icon-wrap');
-            var pageLabel = document.getElementById('page-label');
-            var label = pageLabel.getElementsByTagName('label')[0];
-            var page = document.getElementsByTagName('html')[0];
+    Jax.ready(function(){
+        var header = document.getElementsByTagName('header')[0];
+        var menu = document.getElementById('menu');
+        var iconWrap = document.getElementById('icon-wrap');
+        var pageLabel = document.getElementById('page-label');
+        var label = pageLabel.getElementsByTagName('label')[0];
+        var page = document.getElementsByTagName('html')[0];
+        var nColor = header.getElementsByClassName('my-colors')[0];
 
-            (function(){
-                function closeMenu(){
-                    Jax.cls.remove(menu, 'shift');
-                    Jax.cls.remove(iconWrap, 'shift');
-                    Jax.cls.remove(page, 'no-scroll');
-                }
-
-                function openMenu(){
-                    Jax.cls.add(page, 'no-scroll');
-                    Jax.cls.add(menu, 'shift');
-                    Jax.cls.add(iconWrap, 'shift');
-                }
-
-                menu.addEventListener('mouseleave', function(){
-                    closeMenu();
-                }, false);
-
-                menu.addEventListener('mouseenter', function(){
-                    openMenu();
-                }, false);
-
-                menu.addEventListener('touchend', function(){
-                    closeMenu();
-                }, false);
-
-                pageLabel.addEventListener('mouseenter', function(){
-                    openMenu();
-                }, false);
-
-                pageLabel.addEventListener('mouseleave', function(){
-                    closeMenu();
-                }, false);
-
-                var mSwipe = Swipe.make(menu);
-                mSwipe.left = function(){
-                    closeMenu();
-                };
-
-                var hSwipe = Swipe.make(header, 300);
-                hSwipe.left = function(){
-                    closeMenu();
-                };
-                hSwipe.right = function(){
-                    openMenu();
-                };
-
-                pageLabel.onclick = function(e){
-                    if(Jax.cls.toggle(iconWrap, 'shift')){
-                        openMenu();
-                    }else{
-                        closeMenu();
-                    }
-                };
-            })();
-
-            function frontCase(str){
-                return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
+        (function(){
+            function closeMenu(){
+                Jax.fn.cls.remove(menu, 'shift');
+                Jax.fn.cls.remove(iconWrap, 'shift');
+                Jax.fn.cls.remove(page, 'no-scroll');
             }
 
-            Jax.onLoad(function(page){
-                if(page[1]){
-                    label.innerText = page[1].children[0].innerText;
+            function openMenu(){
+                Jax.fn.cls.add(page, 'no-scroll');
+                Jax.fn.cls.add(menu, 'shift');
+                Jax.fn.cls.add(iconWrap, 'shift');
+            }
+
+            menu.addEventListener('mouseleave', function(){
+                closeMenu();
+            }, false);
+
+            menu.addEventListener('mouseenter', function(){
+                openMenu();
+            }, false);
+
+            menu.addEventListener('touchend', function(){
+                closeMenu();
+            }, false);
+
+            pageLabel.addEventListener('mouseenter', function(){
+                openMenu();
+            }, false);
+
+            pageLabel.addEventListener('mouseleave', function(){
+                closeMenu();
+            }, false);
+
+            var mSwipe = Swipe.make(menu);
+            mSwipe.left = function(){
+                closeMenu();
+            };
+
+            var hSwipe = Swipe.make(header, 300);
+            hSwipe.left = function(){
+                closeMenu();
+            };
+            hSwipe.right = function(){
+                openMenu();
+            };
+
+            pageLabel.onclick = function(e){
+                if(Jax.fn.cls.toggle(iconWrap, 'shift')){
+                    openMenu();
                 }else{
-                    label.innerText = frontCase(page[0]);
+                    closeMenu();
                 }
-            });
+            };
+        })();
+
+        function frontCase(str){
+            return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
+        }
+
+        Jax.onLoad(function(page){
+            if(location.hash == ''){
+                nColor.innerHTML = '<div></div>';
+            }else{
+                nColor.children[0].innerText = '';
+            }
+            if(page[1]){
+                label.innerText = page[1].children[0].innerText;
+            }else{
+                label.innerText = frontCase(page[0]);
+            }
         });
-    })();
+    });
 </script>

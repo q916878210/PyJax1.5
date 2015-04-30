@@ -2,6 +2,7 @@ __author__ = 'Sean Mead'
 
 from jax.core.modules import Session
 from SqlDatabase import TableScheme, SqlDb
+from types import FunctionType
 
 
 class Database(object):
@@ -24,41 +25,77 @@ class Database(object):
         return obj
 
 
-class IsPost(object):
-    def __init__(self, on_fail=None):
-        self.on_fail = on_fail
+class PerfectDecorator(object):
+    @classmethod
+    def on_call(cls, self, func, *args, **kwargs):
+        return func()
 
-    def __call__(self, func):
-        def func_wrapper(_self):
-            if _self.handler.POST:
-                return func(_self)
-            elif self.on_fail:
-                _self.handler.sync_path(self.on_fail)
-                if self.on_fail in dir(_self):
-                    return getattr(_self, self.on_fail)()
-        return func_wrapper
+    class InnerWrap(object):
+        def __init__(self, on_call, *d_args, **d_kwargs):
+            self.on_call = on_call
+            self.__args = d_args
+            self.__kwargs = d_kwargs
+
+        def __call__(self, func):
+            def inner_func_wrapper(_self=None, *f_args, **f_kwargs):
+                if _self:
+                    def inner_dec_wrap():
+                        return func(_self, *f_args, **f_kwargs)
+                    return self.on_call(_self, inner_dec_wrap, *self.__args, **self.__kwargs)
+                else:
+                    def inner_dec_wrap():
+                        return func(*f_args, **f_kwargs)
+                    return self.on_call(_self, inner_dec_wrap, *self.__args, **self.__kwargs)
+            return inner_func_wrapper
+
+    @classmethod
+    def decorate(cls, *args, **kwargs):
+        if args and type(args[0]) == FunctionType:
+            return PerfectDecorator.InnerWrap(cls.on_call).__call__(args[0])
+        else:
+            return PerfectDecorator.InnerWrap(cls.on_call, *args, **kwargs)
 
 
-class IsGet(object):
-    def __init__(self, on_fail=None):
-        self.on_fail = on_fail
+class IsPost(PerfectDecorator):
+    @classmethod
+    def on_call(cls, self, func, negate=False, on_fail=None):
+        p = self.handler.POST
+        if negate:
+            p = not p
+        if p:
+            return func()
+        elif on_fail:
+            self.handler.sync_path(on_fail)
+            if on_fail in dir(self):
+                return getattr(self, on_fail)()
 
-    def __call__(self, func):
-        def func_wrapper(_self):
-            if _self.handler.GET:
-                return func(_self)
-            elif self.on_fail:
-                _self.handler.sync_path(self.on_fail)
-                if self.on_fail in dir(_self):
-                    return getattr(_self, self.on_fail)()
-        return func_wrapper
+
+class IsGet(PerfectDecorator):
+    @classmethod
+    def on_call(cls, self, func, negate=False, on_fail=None):
+        g = self.handler.GET
+        if negate:
+            g = not g
+        if g:
+            return func()
+        elif on_fail:
+            self.handler.sync_path(on_fail)
+            if on_fail in dir(self):
+                return getattr(self, on_fail)()
 
 
-def is_valid(func):
-    def func_wrapper(self):
-        if Session.valid(self.handler):
-            return func(self)
-    return func_wrapper
+class IsValid(PerfectDecorator):
+    @classmethod
+    def on_call(cls, self, func, negate=False, on_fail=None):
+        v = Session.valid(self.handler)
+        if negate:
+            v = not v
+        if v:
+            return func()
+        elif on_fail:
+            self.handler.sync_path(on_fail)
+            if on_fail in dir(self):
+                return getattr(self, on_fail)()
 
 
 def p_decorate(func):

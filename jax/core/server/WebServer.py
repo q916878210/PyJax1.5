@@ -5,6 +5,8 @@ Created on Oct 1, 2014
 """
 
 import os
+from inspect import trace
+import uuid
 import time
 import socket
 import ssl
@@ -22,6 +24,9 @@ from jax.core.modules.Builder import Static
 from jax.core.modules.Media import TYPES
 from jax.core.server.Client import Client
 from jax.core.server.Attributes import Attributes
+
+
+TMP_IGNORE_PATH = '/RPC2' + str(uuid.uuid4())
 
 
 class ClientHandler(BaseHTTPRequestHandler):
@@ -107,14 +112,14 @@ class ClientHandler(BaseHTTPRequestHandler):
         Called when a post request is triggered.
         Receives arguments, checks content length and triggers Client() post.
         """
-        self.__receive()
-        self.__attributes.method = "POST"
-        length = long(self.headers.getheader('content-length'))
-        line, index = self.__receive_line(length)
-        if index < length:
-            self.__read_file(line, length - index)
-        self.__read_arguments(line)
-
+        if self.path != TMP_IGNORE_PATH:
+            self.__receive()
+            self.__attributes.method = "POST"
+            length = long(self.headers.getheader('content-length'))
+            line, index = self.__receive_line(length)
+            if index < length:
+                self.__read_file(line, length - index)
+            self.__read_arguments(line)
         Client(self).post()
 
     def __read_file(self, line, length):
@@ -123,8 +128,8 @@ class ClientHandler(BaseHTTPRequestHandler):
         :param line: First line of the file
         :param length:  Length of the content
         """
-        now = time.time()
-        self.__tmp = Config.TMP_DIR + str(now)
+        key = str(uuid.uuid4())
+        self.__tmp = Config.TMP_DIR + str(key)
 
         with open(self.__tmp, 'wb') as o:
             o.write(line)
@@ -133,7 +138,7 @@ class ClientHandler(BaseHTTPRequestHandler):
             for i in range(0, loop):
                 o.write(self.rfile.read(ClientHandler.MAX_FILE_READ))
             o.write(self.rfile.read(m))
-        Event.add_event(obj=File(self.__tmp), method='delete', interval=4, onetime=True, key=now, start=True)
+        Event.add_event(obj=File(self.__tmp), method='delete', interval=4, onetime=True, key=key, start=True)
 
     def delete_tmp(self):
         """
@@ -162,7 +167,7 @@ class ClientHandler(BaseHTTPRequestHandler):
                 if fail:
                     return
                 name, ext = split_extension(filename)
-                filename = name + str(time.time()) + '.' + ext
+                filename = name + str(uuid.uuid4()) + '.' + ext
             with open(path + filename, 'wb') as o:
                 o.writelines(h.readlines()[:-1])
             h.close()
@@ -311,7 +316,7 @@ class WebServer(ThreadingMixIn, HTTPServer):
             self.server_close()
 
     def handle_error(self, request, address):
-        Log.report_socket_error(address=address, request=request)
+        Log.report_socket_error(address=address, traceback=trace()[-1][1:])
 
     def serve_forever(self, poll_interval=1):
         while self.__alive:
@@ -346,7 +351,7 @@ class WebServerThread(Thread):
 
     def spoof_request(self):
         try:
-            server = xmlrpclib.Server(self.__url)
+            server = xmlrpclib.Server(self.__url + TMP_IGNORE_PATH)
             server.ping()
         except Exception:
             pass

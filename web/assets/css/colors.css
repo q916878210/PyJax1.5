@@ -31,8 +31,16 @@ input[type=submit].blue:hover, input[type=button].blue:hover{
     color: #639 !important;
 }
 
+.purple{
+    background: #639;
+}
+
 .green-text{
     color: #669900 !important;
+}
+
+.green{
+    background: #669900;
 }
 
 .gray-text{

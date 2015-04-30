@@ -81,6 +81,15 @@ class Config(type):
     settings = None
 
     @staticmethod
+    def load_dir(path):
+        files = get_files(path)
+        l_files = {}
+        for item in files:
+            l_files[item] = read_file(os.path.join(path, item))
+        return l_files
+
+
+    @staticmethod
     def get(item):
         if item in Config.settings[Config.CONFIG_VAR]:
             return Config.settings[Config.CONFIG_VAR][item]
@@ -189,21 +198,21 @@ class StaticSettings(type):
 
         @staticmethod
         def _read_meta():
-            return {'meta': read_file(Config.CONFIG_DIR + 'meta.html')}
+            return {'meta': str(read_file(Config.CONFIG_DIR + 'meta.html'))}
 
         @staticmethod
         def _read_ico():
-            return {'ico': read_file(Config.CONFIG_DIR + 'icon.html')}
+            return {'ico': str(read_file(Config.CONFIG_DIR + 'icon.html'))}
 
         @staticmethod
         def _read_jax():
             jax = read_file(Config.SCRIPT_DIR + 'jax.js')
             sync_path = read_file(Config.SCRIPT_DIR + 'sync_path.js')
-            return {'jax': jax, 'sync_path': sync_path}
+            return {'jax': str(jax), 'sync_path': str(sync_path)}
 
         @staticmethod
         def _read_404():
-            return {'404': read_file(Config.FRAMEWORK_DIR + '404.html')}
+            return {'404': str(read_file(Config.FRAMEWORK_DIR + '404.html'))}
 
         @staticmethod
         def _read_frame(data):
@@ -213,13 +222,13 @@ class StaticSettings(type):
                 ip_id = ins.parent().get('id')
                 if ip_id:
                     data['jax'] = data['jax'].replace(Config.KEY_FRAME_ID, ip_id)
-            return {'frame': frame.replace(Config.KEY_CONTENT_1, Config.KEY_CONTENT_2)}
+            return {'frame': str(frame.replace(Config.KEY_CONTENT_1, Config.KEY_CONTENT_2))}
 
         @staticmethod
         def _read_nav(links):
             nav = read_file(Config.FRAMEWORK_DIR + 'nav.html')
             nav = nav.replace(Config.KEY_LINKS, links)
-            return {'nav': nav}
+            return {'nav': str(nav)}
 
         @staticmethod
         def _read_links():
@@ -235,7 +244,7 @@ class StaticSettings(type):
 
         @staticmethod
         def _read_footer():
-            return {'footer': read_file(Config.FRAMEWORK_DIR + 'footer.html')}
+            return {'footer': str(read_file(Config.FRAMEWORK_DIR + 'footer.html'))}
 
         @staticmethod
         def _read_html():
@@ -243,7 +252,7 @@ class StaticSettings(type):
             pages = {}
             for item in files:
                 name, ext = split_extension(item)
-                pages.update({name.lower(): read_file(Config.HTML_DIR + item)})
+                pages.update({name.lower(): str(read_file(Config.HTML_DIR + item))})
             return {'pages': pages}
 
         @staticmethod
@@ -252,7 +261,7 @@ class StaticSettings(type):
             files = get_files(Config.ASSET_DIR + 'css/', 'css')
             for item in files:
                 css = read_file(Config.ASSET_DIR + 'css/' + item)
-                style.update({item: css})
+                style.update({item: str(css)})
             return {'style': style}
 
         @staticmethod
@@ -269,7 +278,7 @@ class StaticSettings(type):
             javascript = {}
             for item in files:
                 js = read_file(Config.ASSET_DIR + 'js/' + item)
-                javascript.update({item: js})
+                javascript.update({item: str(js)})
             return {'js': javascript}
 
         @staticmethod

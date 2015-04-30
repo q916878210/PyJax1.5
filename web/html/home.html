@@ -1,6 +1,8 @@
 <section class="content-wrap center">
     <div class="column">
-
+        <div class="content white center pad-16-lr pad-16-tb">
+            {%!kwargs:account=None%}
+        </div>
         <div class="content white pad-16-lr pad-16-tb">
             <p>PyJax was created to make the web development modular.&nbsp;&nbsp;Content and resources are automatically
             gathered and assembled.&nbsp;&nbsp;Get/Post requests can be handled with html and/or Python methods.</p>
@@ -41,63 +43,4 @@
             <div id="insert-here"></div>
         </div>
     </div>
-    <div class="column">
-        <div class="content white">
-            {%!kwargs:account=None%}
-        </div>
-    </div>
 </section>
-
-<script>
-    var signOut = function(){
-        Jax.get('sign_out', function(){
-            var signLabel = document.getElementById('sign-label');
-            signLabel.getElementsByClassName('sign-status')[0].innerText = '';
-            Jax.page.refresh();
-        });
-    };
-
-    var signIn = function(form){
-        var username = form.username.value;
-        var pass = form.confirm.type == 'hidden' || form.confirm.value != '';
-
-        if((form.username.value != '' || form.password.value != '') && pass){
-            if(form.confirm.type == 'hidden' || (form.password.value == form.confirm.value)){
-                form.ajax(function(data){
-                    if(data.json().status == 'true'){
-                        var signLabel = document.getElementById('sign-label');
-                        signLabel.getElementsByClassName('sign-status')[0].innerText = username;
-                        Jax.page.refresh();
-                    }else{
-                        Jax.select("a[name=status]").text(data.json().message);
-                    }
-                });
-            }else{
-                Jax.select("a[name=status]").text("passwords don't match");
-            }
-        }else{
-            Jax.select("a[name=status]").text('empty fields');
-        }
-    };
-
-    var changeForm = function(button){
-        var form = document.getElementById('form');
-        if(button.innerText == 'Create account'){
-            form.action = 'register';
-            form.password.placeholder = "New Password";
-            form.confirm.type = "password";
-            form.submit.value = "Create account";
-            button.innerText = 'Sign in';
-        }else{
-            form.action = 'sign_in';
-            form.password.placeholder = "Password";
-            form.confirm.type = "hidden";
-            form.submit.value = "Sign in";
-            button.innerText = 'Create account';
-        }
-    };
-</script>
-
-<script>
-
-</script>

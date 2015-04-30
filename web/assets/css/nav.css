@@ -25,38 +25,16 @@ header > div{
     cursor: pointer;
 }
 
+.title-wrap{
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    text-align: center;
+    color: #888;
+}
+
 #sign-label{
     float: right;
     padding: 0 .8em;
-}
-
-#sign-label > div{
-    display: inline-block;
-    height: inherit;
-    vertical-align: top;
-}
-
-.sign-image-wrap > img{
-    padding: 0; margin: 0 0 .1em 0;
-    width: 1.5em; height: 1.5em;
-    vertical-align: middle;
-}
-
-#sign-label-form{
-    position: absolute;
-    z-index: 70;
-    top: -12.1em; right: 0;
-    -webkit-transition: -webkit-transform .45s ease;
-    -moz-transition: -moz-transform .45s ease;
-    -o-transition: -o-transform .45s ease;
-    transition: transform .45s ease;
-}
-
-#sign-label-form.shift{
-    -webkit-transform: translate3d(0px, 15em, 0px);
-    -moz-transform: translate3d(0px, 15em, 0px);
-    -o-transform: translate3d(0px, 15em, 0px);
-    transform: translate3d(0px, 15em, 0px);
 }
 
 #page-label{
