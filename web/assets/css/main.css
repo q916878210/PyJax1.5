@@ -30,6 +30,11 @@ h3, h4{
     font-variant: small-caps;
 }
 
+p{
+    padding: 0;
+    margin: 0;
+}
+
 @media screen and (max-width:750px){
     h1{
         font-size: 22px;
@@ -43,15 +48,16 @@ h3, h4{
 
 .column{
     display: inline-block;
-    max-width: 500px;
+    max-width: 600px;
     width: 100%;
     vertical-align: top;
 }
 
 .content{
+    position: relative;
     text-align: left;
     display: block;
-    max-width: 500px;
+    max-width: 600px;
     width: 100%;
     border: 1px solid rgba(60, 60, 60, .1);
 }
@@ -76,6 +82,14 @@ h3, h4{
 
 .right{
     text-align: right;
+}
+
+.float-left{
+    float:left;
+}
+
+.float-right{
+    float:right;
 }
 
 .pad-16-tb{
@@ -126,4 +140,87 @@ h3, h4{
 .round{
     border-radius:2px;
     -webkit-border-radius: 2px;
+}
+
+.list{
+    padding-left: 1em;
+}
+
+.list > li{
+    padding: .1em;
+    max-width: 100px;
+}
+
+.list > ul{
+    padding-left: 2em;
+    display: inline-block;
+}
+
+.list > ul > li{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    padding: 2px;
+    text-decoration: underline;
+}
+
+.list > ul > .active{
+    color: #4690ee;
+}
+
+.content-bottom{
+    height: 0;
+    font-size: .9em;
+    font-weight: bolder;
+    overflow: hidden;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
+    -webkit-transition: height .25s ease;
+    -moz-transition: height .25s ease;
+    -o-transition: height .25s ease;
+    transition: height .25s ease;
+}
+
+.json{
+    padding: 0;
+    list-style: none;
+    text-align: left;
+    margin: 0 auto;
+    max-width: 200px;
+}
+
+.json > li{
+    padding-left: 1em;
+}
+
+
+.par > p{
+    font-size: 1em;
+    line-height: 1.2em;
+    padding: 0;
+    margin: .5em 0;
+}
+
+.hmm-switch{
+    position: absolute;
+    text-align: center;
+    right: 2px; top: 0;
+}
+
+.hmm-switch > div{
+    position: absolute;
+    right: 0;
 }

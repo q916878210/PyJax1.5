@@ -8,7 +8,7 @@ import os
 import time
 import json
 from collections import OrderedDict
-from jax.core.modules.Parser import HtmlInjectParse
+from jax.core.modules.Parser import HtmlInjectParse, HtmlParse
 from jax.core.modules.Tools import get_address, get_address_local
 
 
@@ -78,6 +78,8 @@ class Config(type):
     KEY_FRAME_ID = '{%!!frame_id%}'
     KEY_LINKS = '{%!!links%}'
 
+    REQ_SCRIPTS = ['jax.js', 'sync_path.js']
+
     settings = None
 
     @staticmethod
@@ -124,9 +126,15 @@ class StaticSettings(type):
             server = self._read_server()
             server.update(self._read_cert())
 
-            data = self._read_meta()
-            data.update(self._read_ico())
+            data = self._read_head()
+            t = HtmlParse(data['head']).find('title')
+            if t:
+                config['title'] = t.inner()
+            else:
+                config['title'] = 'No Title'
+
             data.update(self._read_jax())
+            data.update(self._read_frame_scripts())
             data.update(self._read_frame(data))
             data.update(self._read_nav(self._read_links()))
             data.update(self._read_footer())
@@ -143,7 +151,23 @@ class StaticSettings(type):
         def settings(self):
             return self.__settings
 
-        def __process_parts(self, config, data):
+        def __parse_all(self, config, server, data):
+            for sets in data:
+                if isinstance(data[sets], dict):
+                    for sub_set in data[sets]:
+                        if isinstance(data[sets][sub_set], str):
+                            data[sets][sub_set] = self.__process_parts(config, data[sets][sub_set])
+                elif isinstance(data[sets], str):
+                    data[sets] = self.__process_parts(config, data[sets])
+
+            settings = {Config.TMP_VAR: {},
+                        Config.CONFIG_VAR: config,
+                        Config.SERVER_VAR: server,
+                        Config.DATA_VAR: data}
+            return settings
+
+        @staticmethod
+        def __process_parts(config, data):
             hip = HtmlInjectParse(data)
             for key, value in config.iteritems():
                 if key in hip.inject.inserts:
@@ -153,20 +177,6 @@ class StaticSettings(type):
                     r = node.function()
                     data = data.replace(node.tag, str(r) if r else '', 1)
             return data
-
-        def __parse_all(self, config, server, data):
-            for sets in data:
-                if isinstance(data[sets], dict):
-                    for sub_set in data[sets]:
-                        if isinstance(data[sets][sub_set], str):
-                            data[sets][sub_set] = self.__process_parts(config, data[sets][sub_set])
-                elif isinstance(data[sets], str):
-                    data[sets] = self.__process_parts(config, data[sets])
-            settings = {Config.TMP_VAR: {},
-                        Config.CONFIG_VAR: config,
-                        Config.SERVER_VAR: server,
-                        Config.DATA_VAR: data}
-            return settings
 
         @staticmethod
         def _read_config():
@@ -197,18 +207,24 @@ class StaticSettings(type):
             return server
 
         @staticmethod
-        def _read_meta():
-            return {'meta': str(read_file(Config.CONFIG_DIR + 'meta.html'))}
-
-        @staticmethod
-        def _read_ico():
-            return {'ico': str(read_file(Config.CONFIG_DIR + 'icon.html'))}
+        def _read_head():
+            return {'head': str(read_file(Config.FRAMEWORK_DIR + 'head.html'))}
 
         @staticmethod
         def _read_jax():
-            jax = read_file(Config.SCRIPT_DIR + 'jax.js')
-            sync_path = read_file(Config.SCRIPT_DIR + 'sync_path.js')
+            jax = read_file(Config.SCRIPT_DIR + Config.REQ_SCRIPTS[0])
+            sync_path = read_file(Config.SCRIPT_DIR + Config.REQ_SCRIPTS[1])
             return {'jax': str(jax), 'sync_path': str(sync_path)}
+
+        @staticmethod
+        def _read_frame_scripts():
+            files = get_files(Config.SCRIPT_DIR, 'js')
+            javascript = {}
+            for item in files:
+                if item not in Config.REQ_SCRIPTS:
+                    js = read_file(Config.SCRIPT_DIR + item)
+                    javascript.update({item: str(js)})
+            return {'frame_js': javascript}
 
         @staticmethod
         def _read_404():

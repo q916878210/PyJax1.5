@@ -1,18 +1,99 @@
+<style>
+    #toggle{
+
+    }
+</style>
+
 <section class="content-wrap center">
     <div class="column">
         <div class="content white center pad-16-lr pad-16-tb">
             {%!kwargs:account=None%}
         </div>
-        <div class="content white pad-16-lr pad-16-tb">
-            <p>PyJax was created to make web development modular.&nbsp;&nbsp;Content and resources are automatically
-            gathered and assembled.&nbsp;&nbsp;Get/Post requests can be handled with html and/or Python methods.</p>
 
-            <p>The framework is data friendly.&nbsp;&nbsp;Built-in scripts take care of site navigation.</p>
-            <p>Forward/backward navigation with the browser triggers content to load asynchronously.</p>
+        <div class="content white pad-16-lr pad-16-tb par">
+            <p>
+                PyJax is a web hosting and compilation framework designed to make web development modular.
+                Content and resources are automatically gathered and assembled.
+                Get/Post requests can be handled with html and/or Python methods.
+            </p>
 
+            <p>
+                PyJax runs on OSX/Windows/Linux (including Raspberry pi) with Python 2.7 installed.
+            </p>
+
+            <p>
+                A complete how-to will come soon.
+            </p>
         </div>
+
+        <div class="content white">
+            <div class="pad-16-lr pad-16-tb">
+                <h3>Configuration</h3>
+                <ul class="list">
+                    <li>config /</li>
+                    <ul type="auto-load" url="config" place="#config-more">
+                        <li a="config">config.json</li>
+                        <li a="links">links.json</li>
+                        <li a="server">server.json</li>
+                    </ul>
+                </ul>
+            </div>
+            <div class="pad-16-lr pad-16-tb dark-blue content-bottom">
+                <div id="config-more"></div>
+            </div>
+        </div>
+
+        <div class="content white">
+            <div class="pad-16-lr pad-16-tb">
+                <h3>Framework</h3>
+                <ul class="list">
+                    <li>framework /</li>
+                    <ul type="auto-load" url="frame" place="#frame-more">
+                        <li a="head">head.html</li>
+                        <li a="nav">nav.html</li>
+                        <li a="frame">frame.html</li>
+                        <li a="footer">footer.html</li>
+                        <li a="404">404.html</li>
+                        <li a="scripts">scripts /</li>
+                    </ul>
+                </ul>
+            </div>
+            <div class="pad-16-lr pad-16-tb dark-blue content-bottom">
+                <div id="frame-more"></div>
+            </div>
+        </div>
+
+        <div class="content white">
+            <div class="pad-16-lr pad-16-tb">
+                <h3>Web</h3>
+                <ul class="list">
+                    <li>assets /</li>
+                    <ul type="auto-load" url="assets" place="#web-more">
+                        <li a="css">css /</li>
+                        <li a="img">img /</li>
+                        <li a="js">js /</li>
+                        <li a="media">media /</li>
+                    </ul>
+                    <li>html /</li>
+                    <li>site /</li>
+                    <ul type="auto-load" url="site" place="#web-more">
+                        <li a="links">Links.py</li>
+                        <li a="socketlinks">SocketLinks.py</li>
+                    </ul>
+                    <li>triggers /</li>
+                </ul>
+            </div>
+            <div class="pad-16-lr pad-16-tb dark-blue content-bottom">
+                <div id="web-more"></div>
+            </div>
+        </div>
+
         <div class="content white pad-16-lr pad-16-tb">
-            PyJax
+            <h3>Features</h3>
+            <div class="hmm-switch">
+                Hmm... a switch
+                <div id="toggle"></div>
+            </div>
             <ul class="left">
                 <li>Smartly produces content</li>
                 <li>Forces modular design</li>
@@ -44,3 +125,29 @@
         </div>
     </div>
 </section>
+
+<script>
+
+    Jax.ready(function(){
+        var contents = Jax.fn.select("div.content");
+        Toggle.make(document.getElementById('toggle'), function(status){
+            contents.toggleClass('white');
+            contents.toggleClass('black');
+        });
+        Jax.fn.select('ul[type="auto-load"]').forEach(function(element){
+            Jax.fn.select(element.children).click(function(){
+                var p = element.getAttribute('place');
+                var u = element.getAttribute('url');
+                var a = this.getAttribute('a');
+                Jax.fn.select(element.children).removeClass('active');
+                Jax.fn.cls.add(this, 'active');
+                Jax.get(u + '?a=' + a, function(data){
+                    var e = Jax.fn.select(p);
+                    e.html(data.text);
+                    var bound = e.all[0].getBoundingClientRect();
+                    e.all[0].parentNode.style.height = bound.height + 32 + "px";
+                });
+            });
+        });
+    });
+</script>

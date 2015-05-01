@@ -4,7 +4,7 @@ __author__ = 'Sean Mead'
 class Var(type):
     name = '<span class="blue-text">%s=</span>'
     value = '<span class="green-text">"%s"</span>'
-    tag_out = '<span>&lt;%s&nbsp;</span>%s&gt;<span class="black-text">%s</span>&lt;/%s&gt;'
+    tag_out = '<span>&lt;%s&nbsp;</span>%s&gt;<span>%s</span>&lt;/%s&gt;'
 
 
 def write(node):

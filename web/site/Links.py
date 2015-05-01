@@ -11,7 +11,12 @@ from jax.core.modules.Decorators import IsPost, IsValid
 from web.site import Users
 
 
-RES = Config.load_dir('web/res')
+RES = Config.load_dir('web/html_part')
+
+CONFIG = Config.load_dir('web/html_part/config')
+FRAMEWORK = Config.load_dir('web/html_part/framework')
+ASSETS = Config.load_dir('web/html_part/assets')
+SITE = Config.load_dir('web/html_part/site')
 
 
 def current_user_path(handler):
@@ -39,6 +44,26 @@ class Links(BaseLinks):
             return '<script>%s</script>' % RES['account_in.js']
         else:
             return '<script>%s</script>' % RES['account_out.js']
+
+    def config(self):
+        a = self.handler.get_argument('a') + '.html'
+        if a in CONFIG:
+            return CONFIG[a]
+
+    def frame(self):
+        a = self.handler.get_argument('a') + '.html'
+        if a in FRAMEWORK:
+            return FRAMEWORK[a]
+
+    def assets(self):
+        a = self.handler.get_argument('a') + '.html'
+        if a in ASSETS:
+            return ASSETS[a]
+
+    def site(self):
+        a = self.handler.get_argument('a') + '.html'
+        if a in SITE:
+            return SITE[a]
 
     def color(self):
         c = self.handler.get_argument('c')

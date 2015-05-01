@@ -18,20 +18,12 @@ body{
     height: inherit;
 }
 
-#page, #main{
+#page{
     position: relative;
     background: inherit;
     height: inherit;
-}
-
-
-#page{
     z-index: 10;
     padding-top: 50px;
-}
-
-#main{
-    text-align: center;
 }
 
 .no-scroll{

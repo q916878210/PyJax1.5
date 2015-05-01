@@ -7,6 +7,11 @@
     background: #4690ee !important;
 }
 
+.dark-blue{
+    color: #FFF !important;
+    background: #2670ce !important;
+}
+
 input[type=submit].blue:hover, input[type=button].blue:hover{
     background: #4085e1;
 }
@@ -56,9 +61,10 @@ input[type=submit].blue:hover, input[type=button].blue:hover{
 }
 
 .black-text{
-    color: #2d2d2d !important;
+    color: #2d2d2d;
 }
 
 .black{
-    background: #000;
+    background: #111;
+    color: #EEE !important;
 }

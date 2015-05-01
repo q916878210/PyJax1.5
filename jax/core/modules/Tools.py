@@ -96,7 +96,7 @@ def get_address_local():
             net = interface.get('IP Address')
         elif PlatformHolder.is_mac():
             net = interface.get('inet')
-        elif PlatformHolder.is_linux():
+        else:
             net = interface.get('inet addr')
         if net and net.startswith('127.'):
             return net
@@ -108,10 +108,12 @@ def get_address():
         interface = get_interface(interface_name)
         if PlatformHolder.is_windows():
             net = interface.get('IP Address')
-        elif PlatformHolder.is_mac() and interface.get('status') == 'active':
-            net = interface.get('inet')
-        elif PlatformHolder.is_linux() and not interface.get('inet addr').startswith('127.'):
-            net = interface.get('inet addr')
+        elif PlatformHolder.is_mac():
+            if interface.get('status') == 'active':
+                net = interface.get('inet')
+        else:
+            if not interface.get('inet addr').startswith('127.'):
+                net = interface.get('inet addr')
         if net:
             return net
 
@@ -122,7 +124,7 @@ def get_interfaces():
         return [item.split('     ')[-1].strip() for item in interfaces if item.strip() != '']
     elif PlatformHolder.is_mac():
         return subprocess.check_output('ifconfig -lu', shell=True).split(' ')
-    elif PlatformHolder.is_linux():
+    else:
         interfaces = subprocess.check_output('ifconfig -s', shell=True).split('\n')[1:]
         return [item.split(' ')[0].strip() for item in interfaces]
 
@@ -152,7 +154,7 @@ def get_interface(interface_name):
                         except IndexError:
                             pass
                         count += 2
-    elif PlatformHolder.is_linux():
+    else:
         items = subprocess.check_output('ifconfig %s | grep "Link\|inet"' % interface_name, shell=True).split('\n')
         items = [item.strip().split(':', 1) for item in items]
         for item in items:

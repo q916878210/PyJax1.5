@@ -2,7 +2,7 @@ __author__ = 'Sean Mead'
 
 from jax.core.modules.Settings import Config, split_extension, read_file
 from jax.core.modules.Media import TYPES
-from jax.core.modules.Parser import InjectParse
+from jax.core.modules.Parser import InjectParse, Mini
 
 
 class Builder(object):
@@ -22,42 +22,44 @@ class Builder(object):
             self.__page_args[page] = n_i
 
         self.__jax = self.__data['jax']
+        if Config.get('mini'):
+            self.__jax = Mini.js(self.__jax)
+
         self.__sync_path = '\n<script>\n%s\n</script>' % self.__data['sync_path']
+        self.__frame_scripts = ('\n'.join(self.__data['frame_js'].values())).strip() \
+            if len(self.__data['frame_js']) > 0 else ''
+        if Config.get('mini'):
+            self.__frame_scripts = Mini.js(self.__frame_scripts)
+        self.__frame_scripts = '<script>\n%s\n</script>' % self.__frame_scripts if len(self.__frame_scripts) > 0 else ''
+
         self.__media = self.__data['media']
         self.__images = self.__data['img']
         self.__script = self.__data['js']
         self.__style = self.__data['style']
-        self.__title = Config.get('title')
-        self.__header = '\n<head>\n' + self.__data['meta'] + self._get_title() + \
-                        self._get_style_links() + ('\n<script>\n%s\n</script>' % self.__jax) + '\n</head>'
+        self.__header = '\n<head>\n' + self.__data['head'] + self.__get_style_links() + \
+                        ('\n<script>\n%s\n</script>\n' % self.__jax) + self.__frame_scripts + '\n</head>'
         self.__body = '\n<body>\n' + self.__data['nav'] + '\n' + self.__data['frame'] + self.__data['footer'] + \
-                      self._get_script_links() + '\n</body>'
+                      self.__get_script_links() + '\n</body>'
 
-    def _get_title(self):
-        """
-        Return the html formatted title.
-        :return:
-        """
-        return '\n<title>%s</title>' % self.__title
-
-    def _get_script_links(self):
+    def __get_script_links(self):
         """
         Return the html formatted javascript.
         """
-        links = []
-        for item in self.__script:
-            links.append('\n<script>\n%s\n</script>' % self.__script[item])
-        return ''.join(links)
+        if Config.get('mini'):
+            for key, value in self.__script.iteritems():
+                self.__script[key] = Mini.js(value)
+        return '\n<script>\n%s\n</script>' % ('\n'.join(self.__script.values())).strip() \
+            if len(self.__script) > 0 else ''
 
-    def _get_style_links(self):
+    def __get_style_links(self):
         """
         Return the html formatted stylesheet.
         :return:
         """
-        links = []
-        for item in self.__style:
-            links.append('\n<style>\n%s\n</style>' % self.__style[item])
-        return ''.join(links)
+        if Config.get('mini'):
+            for key, value in self.__style.iteritems():
+                self.__style[key] = Mini.css(value)
+        return '<style>\n%s\n</style>' % ('\n'.join(self.__style.values())).strip() if len(self.__style) > 0 else ''
 
     def sync_path(self, path):
         return self.__sync_path.replace(Config.KEY_PATH, path)
@@ -101,13 +103,13 @@ class Builder(object):
             elif ext == 'css':
                 return None, self.__style[asset]
             elif ext in TYPES:
-                return self._get_other_asset(asset, ext)
+                return self.__get_other_asset(asset, ext)
         else:
             if asset == 'jax':
                 return Header('Content-Type', 'text/javascript'), self.__jax
         return Header.void(), self.__data['404']
 
-    def _get_other_asset(self, asset, ext):
+    def __get_other_asset(self, asset, ext):
         """
         Return asset specifying the extension.
         :param asset:

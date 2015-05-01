@@ -167,6 +167,7 @@ var Jax = new function(){
                 div.innerHTML = data;
                 var scriptString = '';
                 var scripts = div.getElementsByTagName('script');
+                var oLen = scripts.length;
                 for(var i=0; i<scripts.length; i++){
                     if(!scripts[i].hasAttribute('src')){
                         scriptString += scripts[i].innerHTML;
@@ -176,10 +177,13 @@ var Jax = new function(){
                 }
                 this.forEach(function(element){
                     element.innerHTML = div.innerHTML;
+                });
+
+                if(oLen > 0){
                     var script = document.createElement('script');
                     script.innerHTML = scriptString;
-                    element.appendChild(script);
-                });
+                    this.all[0].appendChild(script);
+                }
             };
 
             this.text = function(data){

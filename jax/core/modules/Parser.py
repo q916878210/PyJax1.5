@@ -3,6 +3,8 @@ __author__ = 'Sean Mead'
 from re import compile
 from types import FunctionType, MethodType
 from web import triggers
+from jax.core.modules.CssCompressor import compress as css_compress
+from jax.core.modules.JsCompressor import compress as js_compress
 
 
 class Node(object):
@@ -255,3 +257,14 @@ class HtmlInjectParse(HtmlParse):
 
     def get_triggers(self):
         return [self.__mod_nodes(self.find_all(key), func) for key, func in self.__ip.triggers.iteritems()]
+
+
+class Mini(type):
+
+    @staticmethod
+    def js(text):
+        return js_compress(text)
+
+    @staticmethod
+    def css(text):
+        return css_compress(text)

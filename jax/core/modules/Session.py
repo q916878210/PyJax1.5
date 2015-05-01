@@ -18,7 +18,7 @@ class Static(type):
 
 SESSION = 'SESSION'
 CACHE = '%ssessions.json' % Config.CACHE_DIR
-TIMEOUT = Config.get('timeout')
+TIMEOUT = Config.get('session_timeout')
 TIMEOUT = TIMEOUT if TIMEOUT else 1440
 
 
