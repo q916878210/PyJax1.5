@@ -6,7 +6,6 @@
     box-sizing: border-box;
 }
 
-
 /*____TAGS____*/
 
 h1, h2, h3, h4{
@@ -46,7 +45,12 @@ p{
 
 /*___CONTENT___*/
 
+.content-wrap{
+    position: relative;
+}
+
 .column{
+    position: relative;
     display: inline-block;
     max-width: 600px;
     width: 100%;
@@ -57,9 +61,8 @@ p{
     position: relative;
     text-align: left;
     display: block;
-    max-width: 600px;
     width: 100%;
-    border: 1px solid rgba(60, 60, 60, .1);
+    border: 1px solid rgba(50, 50, 50, .1);
 }
 
 /*___MODIFIERS___*/
@@ -151,6 +154,10 @@ p{
     max-width: 100px;
 }
 
+.list.fill > li{
+    max-width: 100%;
+}
+
 .list > ul{
     padding-left: 2em;
     display: inline-block;
@@ -161,9 +168,17 @@ p{
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
-    cursor: pointer;
     padding: 2px;
+}
+
+.list > .link > li{
+    cursor: pointer;
     text-decoration: underline;
+}
+
+.list > .small > li{
+    font-size: .85em;
+    font-weight: normal;
 }
 
 .list > ul > .active{
@@ -171,27 +186,21 @@ p{
 }
 
 .content-bottom{
+    position: relative;
     height: 0;
+    padding: 8px;
     font-size: .9em;
     font-weight: bolder;
     overflow: hidden;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000;
-    -moz-perspective: 1000;
-    -ms-perspective: 1000;
-    perspective: 1000;
-    -webkit-transition: height .25s ease;
-    -moz-transition: height .25s ease;
-    -o-transition: height .25s ease;
-    transition: height .25s ease;
+    -webkit-transition: height .35s ease;
+    -moz-transition: height .35s ease;
+    -o-transition: height .35s ease;
+    transition: height .35s ease;
+}
+
+.content-text{
+    position: relative;
+    z-index: 10;
 }
 
 .json{
@@ -214,13 +223,35 @@ p{
     margin: .5em 0;
 }
 
+.p-sub{
+    font-size: .8em;
+    font-weight: normal;
+    color: #6F7177;
+}
+
 .hmm-switch{
     position: absolute;
     text-align: center;
     right: 2px; top: 0;
+    font-size: .8em;
 }
 
 .hmm-switch > div{
     position: absolute;
     right: 0;
+}
+
+
+.gpu{
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    perspective: 1000px;
 }

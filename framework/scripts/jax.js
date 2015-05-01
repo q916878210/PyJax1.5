@@ -5,6 +5,7 @@ var Jax = new function(){
     };
 
     var fn = new function(){
+
         this.focusNext = function(type, exAttr){
             if (!type) type = 'input';
             if (!exAttr) exAttr = ['type', 'hidden'];
@@ -82,6 +83,8 @@ var Jax = new function(){
                 }else{
                     elements = new obj.list([selector]);
                 }
+            }else{
+                elements = new obj.list([]);
             }
             return elements;
         };
@@ -123,6 +126,10 @@ var Jax = new function(){
     var obj = new function(){
         this.list = function(items){
             this.all = items;
+            this.element = function(pos){
+                if(pos == null) pos = 0;
+                return this.all[pos];
+            };
 
             this.forEach = function(func){
                 for(var i=0; i<this.all.length; i++){

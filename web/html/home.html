@@ -1,9 +1,3 @@
-<style>
-    #toggle{
-
-    }
-</style>
-
 <section class="content-wrap center">
     <div class="column">
         <div class="content white center pad-16-lr pad-16-tb">
@@ -29,17 +23,21 @@
         <div class="content white">
             <div class="pad-16-lr pad-16-tb">
                 <h3>Configuration</h3>
+                <p class="p-sub">
+                    The default settings can be modified by changing values in
+                    the following json files.
+                </p>
                 <ul class="list">
                     <li>config /</li>
-                    <ul type="auto-load" url="config" place="#config-more">
+                    <ul class="link" type="auto-load" url="config" place="#config-more">
                         <li a="config">config.json</li>
                         <li a="links">links.json</li>
                         <li a="server">server.json</li>
                     </ul>
                 </ul>
             </div>
-            <div class="pad-16-lr pad-16-tb dark-blue content-bottom">
-                <div id="config-more"></div>
+            <div class="dark-blue content-bottom gpu">
+                <div class="content-text white-text" id="config-more"></div>
             </div>
         </div>
 
@@ -48,7 +46,7 @@
                 <h3>Framework</h3>
                 <ul class="list">
                     <li>framework /</li>
-                    <ul type="auto-load" url="frame" place="#frame-more">
+                    <ul class="link" type="auto-load" url="frame" place="#frame-more">
                         <li a="head">head.html</li>
                         <li a="nav">nav.html</li>
                         <li a="frame">frame.html</li>
@@ -58,7 +56,7 @@
                     </ul>
                 </ul>
             </div>
-            <div class="pad-16-lr pad-16-tb dark-blue content-bottom">
+            <div class="dark-blue content-bottom gpu">
                 <div id="frame-more"></div>
             </div>
         </div>
@@ -68,7 +66,7 @@
                 <h3>Web</h3>
                 <ul class="list">
                     <li>assets /</li>
-                    <ul type="auto-load" url="assets" place="#web-more">
+                    <ul class="link" type="auto-load" url="assets" place="#web-more">
                         <li a="css">css /</li>
                         <li a="img">img /</li>
                         <li a="js">js /</li>
@@ -76,14 +74,14 @@
                     </ul>
                     <li>html /</li>
                     <li>site /</li>
-                    <ul type="auto-load" url="site" place="#web-more">
+                    <ul class="link" type="auto-load" url="site" place="#web-more">
                         <li a="links">Links.py</li>
                         <li a="socketlinks">SocketLinks.py</li>
                     </ul>
                     <li>triggers /</li>
                 </ul>
             </div>
-            <div class="pad-16-lr pad-16-tb dark-blue content-bottom">
+            <div class="dark-blue content-bottom gpu">
                 <div id="web-more"></div>
             </div>
         </div>
@@ -94,8 +92,13 @@
                 Hmm... a switch
                 <div id="toggle"></div>
             </div>
-            <ul class="left">
+            <ul class="list fill">
                 <li>Smartly produces content</li>
+                <ul class="small">
+                    <li>POST returns the requested content</li>
+                    <li>GET returns entire built page</li>
+                    <li>GET with the argument 'ajax=true' returns the requested content</li>
+                </ul>
                 <li>Forces modular design</li>
                 <li>Auto .css, .js & media linking</li>
             </ul>
@@ -127,7 +130,6 @@
 </section>
 
 <script>
-
     Jax.ready(function(){
         var contents = Jax.fn.select("div.content");
         Toggle.make(document.getElementById('toggle'), function(status){
@@ -136,16 +138,12 @@
         });
         Jax.fn.select('ul[type="auto-load"]').forEach(function(element){
             Jax.fn.select(element.children).click(function(){
-                var p = element.getAttribute('place');
-                var u = element.getAttribute('url');
-                var a = this.getAttribute('a');
-                Jax.fn.select(element.children).removeClass('active');
+                Jax.fn.select(element.parentNode.querySelector('[class="active"]')).removeClass('active');
                 Jax.fn.cls.add(this, 'active');
-                Jax.get(u + '?a=' + a, function(data){
-                    var e = Jax.fn.select(p);
-                    e.html(data.text);
-                    var bound = e.all[0].getBoundingClientRect();
-                    e.all[0].parentNode.style.height = bound.height + 32 + "px";
+                var place = Jax.fn.select(element.getAttribute('place'));
+                Jax.get(element.getAttribute('url') + '?a=' + this.getAttribute('a'), function(data){
+                    place.html(data.text);
+                    place.element().parentNode.style.height = place.element().getBoundingClientRect().height + 16 + "px";
                 });
             });
         });

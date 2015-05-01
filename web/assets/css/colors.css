@@ -32,6 +32,11 @@ input[type=submit].blue:hover, input[type=button].blue:hover{
     background:#FF4444;
 }
 
+.dark-red{
+    color: #FFF !important;
+    background: #CE3026;
+}
+
 .purple-text{
     color: #639 !important;
 }

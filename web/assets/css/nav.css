@@ -30,6 +30,9 @@ header > div{
     left: 0; right: 0; top: 0;
     text-align: center;
     color: #aaa;
+    font-weight: bolder;
+    text-transform: lowercase;
+    font-variant: small-caps;
 }
 
 #sign-label{
