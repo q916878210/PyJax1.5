@@ -8,7 +8,7 @@ import argparse
 import signal
 import time
 
-from jax.core.modules import Session
+from jax.core.modules import Broadcast, Session
 from jax.core.modules.Settings import Config, get_files
 from jax.core.modules.Log import Log
 from jax.core.modules.Tools import File, set_title, open_in_browser, get_address_local
@@ -178,6 +178,7 @@ def menu_factory(inherit, *args):
         def __init__(self, arguments):
             super(self.__class__, self).__init__(hide=['back', 'schedule_events'], prompt='Input: ')
             signal.signal(signal.SIGINT, self.quit)
+            self.looping = False
             self.__c_switch = CallbackFlag.as_switch(begin=self.__callback_begin, pre=self.__callback_pre)
             self.__title = Config.get('title')
             self.__url = None
@@ -248,12 +249,12 @@ def menu_factory(inherit, *args):
             open_in_browser(arg, self.__url)
             self.pane.clear_input()
 
-        @Order(1)
+        @Order(2)
         def servers(self, arg=None):
             self.__servers.loop()
             self.resize()
 
-        @Order(2)
+        @Order(3)
         def sql(self, db=None):
             if self.__servers.running('sql'):
                 if db:
@@ -284,6 +285,10 @@ def menu_factory(inherit, *args):
             else:
                 Config.load_tmp(log_error=True)
             Log.last_error = 0
+
+        @Order(1)
+        def reload(self, arg=None):
+            Broadcast.send('reload')
 
         @Order(0)
         def quit(self, arg=None, single=None, frame=None):

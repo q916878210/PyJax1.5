@@ -4,7 +4,8 @@ Created on Jan 30, 2014
 @author: Sean Mead
 """
 
-
+import imp
+from jax.core.modules import Broadcast
 from jax.core.modules.Builder import Static
 from web.site.Links import Links
 from web.site.SocketLinks import SocketLinks
@@ -79,3 +80,11 @@ class Client(object):
         """
         if self.__handler.attributes.path != '/':
             self._send_all(self.__page_logic(self.__request))
+
+
+def do_load(msg):
+    imp.reload(Links)
+    imp.reload(SocketLinks)
+
+
+Broadcast.register(do_load)

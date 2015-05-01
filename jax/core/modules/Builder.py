@@ -1,6 +1,7 @@
 __author__ = 'Sean Mead'
 
-from jax.core.modules.Settings import Config, split_extension, read_file
+from jax.core.modules import Broadcast
+from jax.core.modules.Settings import Config, split_extension, read_file, LogPool
 from jax.core.modules.Media import TYPES
 from jax.core.modules.Parser import InjectParse, Mini
 
@@ -179,3 +180,9 @@ class Header(object):
 
 class Static(type):
     Builder = Builder()
+
+    @staticmethod
+    def do_read(msg):
+        Static.Builder = Builder()
+
+Broadcast.register(Static.do_read)

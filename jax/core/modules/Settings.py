@@ -8,6 +8,7 @@ import os
 import time
 import json
 from collections import OrderedDict
+from jax.core.modules import Broadcast
 from jax.core.modules.Parser import HtmlInjectParse, HtmlParse
 from jax.core.modules.Tools import get_address, get_address_local
 
@@ -314,3 +315,9 @@ class StaticSettings(type):
                 return {'cert': None, 'key': None}
 
     Config.settings = SettingsReader().settings
+
+    @staticmethod
+    def do_read(msg):
+        Config.settings = StaticSettings.SettingsReader().settings
+
+Broadcast.register(StaticSettings.do_read)

@@ -1,8 +1,10 @@
 __author__ = 'Sean Mead'
 
+import imp
 from re import compile
 from types import FunctionType, MethodType
 from web import triggers
+from jax.core.modules import Broadcast
 from jax.core.modules.CssCompressor import compress as css_compress
 from jax.core.modules.JsCompressor import compress as js_compress
 
@@ -268,3 +270,9 @@ class Mini(type):
     @staticmethod
     def css(text):
         return css_compress(text)
+
+
+def do_load(msg):
+    imp.reload(triggers)
+
+Broadcast.register(do_load)
