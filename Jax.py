@@ -40,7 +40,7 @@ class Service(object):
         self.__running = True
         print 'holding...'
         while self.__running:
-            time.sleep(10)
+            time.sleep(60)
         self.__menu.quit()
 
 
