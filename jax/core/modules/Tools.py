@@ -112,7 +112,8 @@ def get_address():
             if interface.get('status') == 'active':
                 net = interface.get('inet')
         else:
-            if not interface.get('inet addr').startswith('127.'):
+            i = interface.get('inet addr')
+            if i and not i.startswith('127.'):
                 net = interface.get('inet addr')
         if net:
             return net
