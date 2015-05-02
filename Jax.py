@@ -7,6 +7,8 @@ Created on Jan 26, 2015
 import argparse
 import signal
 import time
+import sys
+from threading import Thread
 
 from jax.core.modules import Broadcast, Session
 from jax.core.modules.Settings import Config, get_files
@@ -20,6 +22,26 @@ from jax.core.server.WebSocketServer import WebSocketThread
 from jax.core.server.SocketClients import SocketUpdateThread
 from jax.core.server.SqlServer import SqlServer, query as access_query
 from jax.core.server.GhostServer import Ghost
+
+
+class Service(object):
+    def __init__(self, args):
+        self.__running = False
+        self.__args = args
+        print 'service created'
+        self.__menu = InterfaceFactory.menu(False, self.__args)
+        print 'services started: %s:%s' % (Config.get_server()['address'], Config.get_server()['web_port'])
+        signal.signal(signal.SIGINT, self.quit)
+
+    def quit(self, arg=None, single=None, frame=None):
+        self.__running = False
+
+    def run(self):
+        self.__running = True
+        print 'holding...'
+        while self.__running:
+            time.sleep(10)
+        self.__menu.quit()
 
 
 class Schedule(type):
@@ -177,7 +199,10 @@ def menu_factory(inherit, *args):
 
         def __init__(self, arguments):
             super(self.__class__, self).__init__(hide=['back', 'schedule_events'], prompt='Input: ')
-            signal.signal(signal.SIGINT, self.quit)
+            try:
+                signal.signal(signal.SIGINT, self.quit)
+            except ValueError:
+                pass
             self.looping = False
             self.__c_switch = CallbackFlag.as_switch(begin=self.__callback_begin, pre=self.__callback_pre)
             self.__title = Config.get('title')
@@ -311,5 +336,10 @@ if __name__ == "__main__":
     parser.add_argument('--log-message', action='store_true')
     parser.add_argument('--log-all', action='store_true')
     parser.add_argument('--no-cli', action='store_false')
+    parser.add_argument('--service', action='store_true')
     p_args = parser.parse_args()
-    InterfaceFactory.menu(p_args.no_cli, p_args).loop()
+    if p_args.service:
+        service = Service(p_args)
+        service.run()
+    else:
+        InterfaceFactory.menu(p_args.no_cli, p_args).loop()
